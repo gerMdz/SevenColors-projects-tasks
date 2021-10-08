@@ -1,20 +1,38 @@
 {
     "type": "project",
-    "license": "proprietary",
+    "license": "MIT",
+    "name": "germdz/andesuser",
+    "description": "Base para el manejo de usuarios e inicio de otros proyectos",
+    "keywords": [],
+    "homepage": "https://github.com/gerMdz/AndesUser",
+    "authors": [
+        {
+            "name": "Gerardo Montivero",
+            "email": "gerardo.montivero@gmail.com"
+        }
+    ],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-migrations-bundle": "^3.1",
         "symfony/console": "5.3.*",
         "symfony/dotenv": "5.3.*",
         "symfony/flex": "^1.3.1",
         "symfony/framework-bundle": "5.3.*",
         "symfony/runtime": "5.3.*",
+        "symfony/security-bundle": "5.3.*",
+        "symfony/twig-bundle": "5.3.*",
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "symfony/maker-bundle": "^1.34",
+        "symfony/rate-limiter": "5.3.*",
+        "symfony/stopwatch": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*"
     },
     "config": {
         "optimize-autoloader": true,
