@@ -22,6 +22,10 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        api:
+            pattern: ^/api
+            provider: api_user_provider
+            custom_authenticator: App\Security\ApiAndesAuthenticator
         main:
             lazy: true
             provider: app_user_provider
@@ -41,8 +45,7 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             switch_user: true
-            custom_authenticators:
-                - App\Security\AndesUserAuthenticator
+            custom_authenticator: App\Security\AndesUserAuthenticator
             logout:
                 path: app_logout
                 # where to redirect after logout
@@ -57,5 +60,6 @@ security:
 
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/docs, roles: PUBLIC_ACCESS }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
