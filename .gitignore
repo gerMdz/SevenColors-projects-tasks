@@ -10,3 +10,4 @@
 ###< symfony/framework-bundle ###
 /.idea/
 /.idea
+.idea/*
