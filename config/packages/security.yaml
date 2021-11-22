@@ -1,65 +1,32 @@
 security:
-    # https://symfony.com/doc/current/security/authenticator_manager.html
     enable_authenticator_manager: true
-    # https://symfony.com/doc/current/security.html#c-hashing-passwords
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-        App\Entity\User:
-            algorithm: auto
-
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\AndesUser
                 property: email
-        api_user_provider:
-            entity:
-                class: App\Entity\User
-                property: apiToken
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        api:
-            pattern: ^/api
-            provider: api_user_provider
-            custom_authenticator: App\Security\ApiAndesAuthenticator
         main:
             lazy: true
             provider: app_user_provider
-            # allow authentication using a form or HTTP basic
-            form_login: ~
-            http_basic: ~
-
-            # configure the form authentication as the entry point for unauthenticated users
-            entry_point: form_login
-
-            login_throttling:
-                max_attempts: 3
-                interval: '15 minutes'
+            custom_authenticator: App\Security\AndesFormAuthenticator
 
             # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#firewalls-authentication
+            # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
-            switch_user: true
-            custom_authenticator: App\Security\AndesUserAuthenticator
-            logout:
-                path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
-
-    role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
-        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+            # switch_user: true
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-
     access_control:
-        - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/docs, roles: PUBLIC_ACCESS }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

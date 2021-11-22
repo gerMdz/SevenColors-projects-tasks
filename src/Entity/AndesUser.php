@@ -2,22 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\AndesUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass=AndesUserRepository::class)
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class AndesUser implements UserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue("UUID")
+     * @ORM\Column(type="string")
      */
-    private ?int $id;
+    private ?string $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -30,22 +30,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $primerNombre;
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
     private string $password;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $apiToken;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private ?string $primerNombre;
-
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -73,7 +68,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-
     /**
      * @see UserInterface
      */
@@ -94,23 +88,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
+     *
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
+        return null;
     }
 
     /**
-     * Returning a salt is only needed, if you are not using a modern
-     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     * This method can be removed in Symfony 6.0 - is not needed for apps that do not check user passwords.
      *
      * @see UserInterface
      */
@@ -128,18 +116,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getApiToken(): ?string
-    {
-        return $this->apiToken;
-    }
-
-    public function setApiToken(?string $apiToken): self
-    {
-        $this->apiToken = $apiToken;
-
-        return $this;
-    }
-
     public function getPrimerNombre(): ?string
     {
         return $this->primerNombre;
@@ -148,6 +124,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrimerNombre(?string $primerNombre): self
     {
         $this->primerNombre = $primerNombre;
+
+        return $this;
+    }
+
+
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
 
         return $this;
     }
