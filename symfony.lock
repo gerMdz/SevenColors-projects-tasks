@@ -326,6 +326,9 @@
     "symfony/polyfill-php81": {
         "version": "v1.23.0"
     },
+    "symfony/polyfill-uuid": {
+        "version": "v1.25.0"
+    },
     "symfony/property-access": {
         "version": "v5.3.8"
     },
@@ -412,6 +415,9 @@
             "config/packages/twig.yaml",
             "templates/base.html.twig"
         ]
+    },
+    "symfony/uid": {
+        "version": "v5.3.14"
     },
     "symfony/ux-chartjs": {
         "version": "v1.3.0"

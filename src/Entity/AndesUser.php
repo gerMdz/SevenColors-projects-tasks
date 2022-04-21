@@ -6,6 +6,7 @@ use App\Repository\AndesUserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass=AndesUserRepository::class)
@@ -14,10 +15,11 @@ class AndesUser implements UserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue("UUID")
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="doctrine.uuid_generator")
      */
-    private ?string $id;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -40,7 +42,7 @@ class AndesUser implements UserInterface
      */
     private string $password;
 
-    public function getId(): ?string
+    public function getId(): ?Uuid
     {
         return $this->id;
     }

@@ -29,6 +29,11 @@ class UserNd implements UserInterface
      */
     private array $roles = [];
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $FirstName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -110,5 +115,17 @@ class UserNd implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->FirstName;
+    }
+
+    public function setFirstName(?string $FirstName): self
+    {
+        $this->FirstName = $FirstName;
+
+        return $this;
     }
 }

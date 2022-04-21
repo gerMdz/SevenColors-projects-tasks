@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Factory\AndesUserFactory;
 use App\Factory\UserFactory;
+use App\Factory\UserNdFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -31,6 +32,9 @@ class AppFixtures extends Fixture
             'email' => 'abraca_admin@example.com',
         ]);
         AndesUserFactory::createMany(10);
+
+        UserNdFactory::createOne(['email' => 'usernd_admin@example.com']);
+        UserNdFactory::createMany(10);
 
         $manager->flush();
     }
