@@ -4,8 +4,10 @@ namespace App\Security;
 
 use App\Entity\UserNd;
 use App\Repository\UserNdRepository;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
@@ -18,13 +20,16 @@ use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 class LoginFormAuthenticator extends AbstractAuthenticator
 {
     private UserNdRepository $userRepository;
+    private RouterInterface $router;
 
     /**
      * @param UserNdRepository $userRepository
+     * @param RouterInterface $router
      */
-    public function __construct(UserNdRepository $userRepository)
+    public function __construct(UserNdRepository $userRepository, RouterInterface $router)
     {
         $this->userRepository = $userRepository;
+        $this->router = $router;
     }
 
     public function supports(Request $request): ?bool
@@ -54,7 +59,9 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        dd('success');
+        return new RedirectResponse(
+            $this->router->generate('app_inicio')
+        );
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
