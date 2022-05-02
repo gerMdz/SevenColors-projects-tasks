@@ -23,6 +23,7 @@ security:
             custom_authenticator:
 #                - App\Security\AndesFormAuthenticator
                 - App\Security\LoginFormAuthenticator
+            logout: true
 
 
             # activate different ways to authenticate
