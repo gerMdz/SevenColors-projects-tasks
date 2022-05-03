@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\UserNd;
 use App\Repository\UserNdRepository;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Zenstruck\Foundry\RepositoryProxy;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
@@ -28,11 +29,17 @@ use Zenstruck\Foundry\Proxy;
  */
 final class UserNdFactory extends ModelFactory
 {
-    public function __construct()
+    private UserPasswordHasherInterface $passwordHasher;
+
+    /**
+     * @param UserPasswordHasherInterface $passwordHasher
+     */
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
         parent::__construct();
 
-        // TODO inject services if required (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services)
+
+        $this->passwordHasher = $passwordHasher;
     }
 
     protected function getDefaults(): array
@@ -41,6 +48,7 @@ final class UserNdFactory extends ModelFactory
             // TODO add your default values here (https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#model-factories)
             'email' => self::faker()->email(),
             'firstName' => self::faker()->firstName(),
+            'password' => $this->passwordHasher->hashPassword()
         ];
     }
 
