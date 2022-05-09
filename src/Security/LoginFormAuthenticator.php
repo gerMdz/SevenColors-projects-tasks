@@ -60,6 +60,8 @@ class LoginFormAuthenticator extends AbstractAuthenticator
                     'authenticate',
                     $request->request->get('_csrf_token')
                 ),
+//                Si quiero dejar la cookie de recordarme permanentemente
+//                (new RememberMeBadge())->enable(),
                 new RememberMeBadge(),
             ]
         );
