@@ -23,6 +23,7 @@ class AndesFormAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
+        dd('dd');
         $email = $request->request->get('email');
         $password = $request->request->get('password');
 

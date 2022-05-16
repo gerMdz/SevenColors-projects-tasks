@@ -38,6 +38,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
+
         $email = $request->request->get('email');
         $password = $request->request->get('password');
         return new Passport(
@@ -64,6 +65,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+
         if ($target = $this->getTargetPath($request->getSession(), $firewallName)){
             return new RedirectResponse($target);
         }
@@ -75,6 +77,7 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
     protected function getLoginUrl(Request $request): string
     {
+
         return $this->router->generate('app_master_login');
     }
 }
