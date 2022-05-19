@@ -17,7 +17,16 @@ class MasterSecurityController extends AbstractController
     {
 
         return $this->render('master_security/login.html.twig', [
-            'error' => $authenticationUtils->getLastAuthenticationError()
+            'error' => $authenticationUtils->getLastAuthenticationError(),
+            'last_username' => $authenticationUtils->getLastUsername(),
         ]);
+    }
+
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout(): void
+    {
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }
