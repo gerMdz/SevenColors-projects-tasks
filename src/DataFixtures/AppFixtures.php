@@ -25,15 +25,23 @@ class AppFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        UserFactory::createOne(['email' => 'abraca_admin@example.com']);
+//        UserFactory::createOne(['email' => 'abraca_admin@example.com']);
+//
+//        UserFactory::createMany(10);
+//        AndesUserFactory::createOne([
+//            'email' => 'abraca_admin@example.com',
+//        ]);
+//        AndesUserFactory::createMany(10);
 
-        UserFactory::createMany(10);
-        AndesUserFactory::createOne([
-            'email' => 'abraca_admin@example.com',
+        UserNdFactory::createOne([
+            'email' => 'usernd_admin@example.com',
+            'roles '=> ['ROLE_ADMIN'],
         ]);
-        AndesUserFactory::createMany(10);
 
-        UserNdFactory::createOne(['email' => 'usernd_admin@example.com']);
+        UserNdFactory::createOne([
+            'email' => 'usernd_user@example.com',
+        ]);
+
         UserNdFactory::createMany(10);
 
         $manager->flush();
