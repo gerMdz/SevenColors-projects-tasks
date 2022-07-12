@@ -70,9 +70,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
-
 
 
     /**
@@ -156,5 +155,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername(): string
     {
         return $this->getUserIdentifier();
+    }
+
+    public function getAvatarUri(int $size = 32): ?string
+    {
+        return 'https://ui-avatars.com/api/?' . http_build_query([
+                'name' => $this->getDisplayName(),
+                'size' => $size,
+                'background' => 'random'
+            ]);
+    }
+
+    public function getDisplayName():?string
+    {
+        return $this->getPrimerNombre() ?: $this->getEmail();
     }
 }

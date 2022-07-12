@@ -36,7 +36,27 @@
                         </li>
                         {% endif %}
                     </ul>
-                    {%  if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {%  if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <div class="dropdown">
+                            <button
+                                    class="dropdown-toggle btn"
+                                    type="button"
+                                    id="user-dropdown"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                            >
+                                <img
+                                        src="{{ app.user.avatarUri }}"
+                                        alt="{{ app.user.displayName}}">
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                                <li>
+                                    <a class="dropdown-item" href="#">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {{ app.user.firstName }}
                         <a href="{{path('app_logout')}}" class="nav-link text-black-50">Salir</a>
                     {% else %}
 
