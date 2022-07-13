@@ -1,75 +1,86 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spartan&display=swap">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light px-1">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
-                        Cauldron Overflow</p>
-                </a>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Spartan&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+              integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<nav
+        class="navbar navbar-expand-lg navbar-light bg-light px-1"
+        {{ is_granted('ROLE_ALLOWED_TO_SWITCH') ?'style="background-color: red !important"' }}
+>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
+                Cauldron Overflow</p>
+        </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapsable" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapsable"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <div class="collapse navbar-collapse" id="navbar-collapsable">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Answers</a>
-                        </li>
-                        {% if is_granted('ROLE_ADMIN') %}
+        <div class="collapse navbar-collapse" id="navbar-collapsable">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Answers</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Respuestas</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Respuestas</a>
+                    </li>
+                {% endif %}
+            </ul>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class="dropdown">
+                    <button
+                            class="dropdown-toggle btn"
+                            type="button"
+                            id="user-dropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                    >
+                        <img
+                                src="{{ app.user.avatarUri }}"
+                                alt="{{ app.user.displayName }}">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_inicio', {'_switch_user': '_exit'}) }}">Salir de switch</a>
+                            </li>
                         {% endif %}
+                        <li>
+                            <a class="dropdown-item" href="#">Log Out</a>
+                        </li>
                     </ul>
-                    {%  if is_granted('IS_AUTHENTICATED_FULLY') or is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <div class="dropdown">
-                            <button
-                                    class="dropdown-toggle btn"
-                                    type="button"
-                                    id="user-dropdown"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                            >
-                                <img
-                                        src="{{ app.user.avatarUri }}"
-                                        alt="{{ app.user.displayName}}">
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                                <li>
-                                    <a class="dropdown-item" href="#">Log Out</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                        {{ app.user.firstName }}
-                        <a href="{{path('app_logout')}}" class="nav-link text-black-50">Salir</a>
-                    {% else %}
-
-                    <a href="#" class="btn btn-dark">Sign up</a>
-                    <a href="{{path('app_master_login')}}" class="nav-link text-black-50">Login</a>
-                    {%  endif %}
                 </div>
-            </div>
-        </nav>
 
-        {% block body %}{% endblock %}
-        <footer class="mt-5 p-3 text-center">
-            Made with <i style="color: red;" class="fa fa-heart"></i> by the guys and gals at <a style="color: #444; text-decoration: underline;" href="https://symfonycasts.com">SymfonyCasts</a>
-        </footer>
-    </body>
+                {{ app.user.firstName }}
+                <a href="{{ path('app_logout') }}" class="nav-link text-black-50">Salir</a>
+            {% else %}
+
+                <a href="#" class="btn btn-dark">Sign up</a>
+                <a href="{{ path('app_master_login') }}" class="nav-link text-black-50">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
+{% block body %}{% endblock %}
+<footer class="mt-5 p-3 text-center">
+    Made with <i style="color: red;" class="fa fa-heart"></i> by the guys and gals at <a
+            style="color: #444; text-decoration: underline;" href="https://symfonycasts.com">SymfonyCasts</a>
+</footer>
+</body>
 </html>
