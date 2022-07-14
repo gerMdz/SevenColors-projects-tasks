@@ -6,6 +6,7 @@ use App\Repository\UserNdRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserNdRepository::class)
@@ -16,11 +17,13 @@ class UserNd implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("user:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups("user:read")
      */
     private ?string $email;
 
@@ -31,8 +34,9 @@ class UserNd implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("user:read")
      */
-    private $FirstName;
+    private ?string $FirstName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -157,6 +161,11 @@ class UserNd implements UserInterface, PasswordAuthenticatedUserInterface
         $this->plainPassword = $plainPassword;
     }
 
+    /**
+     * @param int $size
+     * @return string|null
+     * @Groups("user:read")
+     */
     public function getAvatarUri(int $size = 32): ?string
     {
         return 'https://ui-avatars.com/api/?' . http_build_query([
