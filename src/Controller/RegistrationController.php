@@ -43,13 +43,14 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
+            // Si creo la opción de no logear automaticamente irá a un lado u otro
             return $userAuthenticator->authenticateUser(
                 $user,
                 $formLoginAuthenticator,
                 $request
             );
-            // Si creo la opción de no logear ni
-            return $this->redirectToRoute('app_inicio');
+
+//            return $this->redirectToRoute('app_inicio');
         }
 
         return $this->render('registration/register.html.twig', [
