@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Factory\AndesUserFactory;
+use App\Factory\QuestionFactory;
 use App\Factory\UserFactory;
 use App\Factory\UserNdFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -43,6 +44,17 @@ class AppFixtures extends Fixture
         ]);
 
         UserNdFactory::createMany(10);
+
+        $questions = QuestionFactory::createMany(20, function() {
+            return [
+                'owner' => UserNdFactory::random(),
+            ];
+        });
+
+        QuestionFactory::new()
+            ->many(10)
+            ->create()
+        ;
 
         $manager->flush();
     }
