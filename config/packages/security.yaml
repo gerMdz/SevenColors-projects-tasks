@@ -50,7 +50,7 @@ security:
 
     role_hierarchy:
         ROLE_ADMIN_SITE: ['ROLE_ALLOWED_TO_SWITCH']
-        ROLE_ADMIN: [ 'ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN' ]
+        ROLE_ADMIN: [ 'ROLE_COMMENT_ADMIN', 'ROLE_USER_ADMIN', 'ROLE_ALLOWED_TO_SWITCH' ]
         ROLE_HUMAN_RESOURCES: [ 'ROLE_USER_ADMIN' ]
 
     # Easy way to control access for large sections of your site

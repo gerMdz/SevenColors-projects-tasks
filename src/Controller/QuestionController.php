@@ -66,7 +66,7 @@ class QuestionController extends AbstractController
      */
     public function edit(Question $question)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBER');
+        $this->denyAccessUnlessGranted('EDIT', $question);
 
 
         return $this->render('question/edit.html.twig', [
