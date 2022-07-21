@@ -10,8 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
-use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
+use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -20,11 +19,10 @@ class RegistrationController extends AbstractController
      * @param Request $request
      * @param UserPasswordHasherInterface $userPasswordHasher
      * @param EntityManagerInterface $entityManager
-     * @param UserAuthenticatorInterface $userAuthenticator
-     * @param FormLoginAuthenticator $formLoginAuthenticator
+     * @param VerifyEmailHelperInterface $verifyEmailHelper
      * @return Response
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, UserAuthenticatorInterface $userAuthenticator, FormLoginAuthenticator $formLoginAuthenticator): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
         $user = new UserNd();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -41,14 +39,23 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
-            // Si creo la opción de no logear automaticamente irá a un lado u otro
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $formLoginAuthenticator,
-                $request
+
+            $signature = $verifyEmailHelper->generateSignature(
+                'app_verify_email',
+                $user->getId(),
+                $user->getEmail(),
+                ['id' =>$user->getId()]
+
             );
+
+
+//            TODO para enviar email
+            $this->addFlash('success', 'Confirmar mail' .$signature->getSignedUrl());
+
+
+
+            return $this->redirectToRoute('app_homepage');
 
 //            return $this->redirectToRoute('app_inicio');
         }
@@ -57,4 +64,16 @@ class RegistrationController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/verify", name="app_verify_email")
+     * @return void
+     */
+    public function verifyUserMail()
+    {
+
+
+    }
+
+
 }
