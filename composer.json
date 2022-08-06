@@ -1,10 +1,10 @@
 {
     "type": "project",
     "license": "MIT",
-    "name": "germdz/andesuser",
-    "description": "Base para el manejo de usuarios e inicio de otros proyectos",
+    "name": "germdz/seven_colors-projects-tasks",
+    "description": "Manage projects and their tasks taking into account: users, clients and organizations.",
     "keywords": [],
-    "homepage": "https://github.com/gerMdz/AndesUser",
+    "homepage": "https://github.com/gerMdz/SevenColors-projects-tasks",
     "authors": [
         {
             "name": "Gerardo Montivero",

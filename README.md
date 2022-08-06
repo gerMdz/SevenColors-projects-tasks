@@ -1,6 +1,11 @@
 # Seven Colors Projects and task
 
-Base para otros proyectos con la parte de usuarios resuelta
+Manage projects and their tasks taking into account: users, clients and organizations.
+* Contains:
+  * Api
+  * Sending mail
+  * Reports
+  * Document generation
 
 ### Tanks
 
