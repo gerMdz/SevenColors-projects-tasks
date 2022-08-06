@@ -50,6 +50,7 @@ final class UserNdFactory extends ModelFactory
             'firstName' => self::faker()->firstName(),
 //            'password' => $this->passwordHasher->hashPassword()
             'plainPassword' => 'tada',
+            'isVerified' => true,
         ];
     }
 
@@ -57,14 +58,13 @@ final class UserNdFactory extends ModelFactory
     {
         // see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#initialization
         return $this
-            ->afterInstantiate(function(UserNd $userNd) {
-                if($userNd->getPlainPassword()){
+            ->afterInstantiate(function (UserNd $userNd) {
+                if ($userNd->getPlainPassword()) {
                     $userNd->setPassword(
-                      $this->passwordHasher->hashPassword($userNd, $userNd->getPlainPassword())
+                        $this->passwordHasher->hashPassword($userNd, $userNd->getPlainPassword())
                     );
                 }
-            })
-        ;
+            });
     }
 
     protected static function getClass(): string
