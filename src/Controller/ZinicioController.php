@@ -41,30 +41,5 @@ class ZinicioController extends BaseController
         ]);
     }
 
-    /**
-     * @Route("/question", name="app_question")
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function question(): Response
-    {
 
-        return $this->render('zinicio/index.html.twig', [
-            'controller_name' => 'ZinicioController',
-        ]);
-    }
-
-    /**
-     * @Route("/question", name="app_question")
-     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
-     */
-    public function answerVote(LoggerInterface $logger): Response
-    {
-        $logger->info('{user} is voting on answer {answer}', [
-            'user' => $this->getUser()->getEmail(),
-            'answer' => 'aquí una nota',
-        ]);
-        return $this->render('zinicio/index.html.twig', [
-            'controller_name' => 'ZinicioController',
-        ]);
-    }
 }

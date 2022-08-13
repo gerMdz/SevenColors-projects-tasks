@@ -34,27 +34,20 @@ class AppFixtures extends Fixture
 //        ]);
 //        AndesUserFactory::createMany(10);
 
-        UserNdFactory::createOne([
+        UserFactory::createOne([
             'email' => 'usernd_admin@example.com',
             'roles '=> ['ROLE_ADMIN'],
         ]);
 
-        UserNdFactory::createOne([
+        UserFactory::createOne([
             'email' => 'usernd_user@example.com',
         ]);
 
-        UserNdFactory::createMany(10);
+        UserFactory::createMany(10);
 
-        $questions = QuestionFactory::createMany(20, function() {
-            return [
-                'owner' => UserNdFactory::random(),
-            ];
-        });
 
-        QuestionFactory::new()
-            ->many(10)
-            ->create()
-        ;
+
+
 
         $manager->flush();
     }

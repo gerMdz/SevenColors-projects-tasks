@@ -2,8 +2,8 @@
 
 namespace App\Security;
 
-use App\Entity\UserNd;
-use App\Repository\UserNdRepository;
+
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,14 +23,14 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
-    private UserNdRepository $userRepository;
+    private UserRepository $userRepository;
     private RouterInterface $router;
 
     /**
-     * @param UserNdRepository $userRepository
+     * @param UserRepository $userRepository
      * @param RouterInterface $router
      */
-    public function __construct(UserNdRepository $userRepository, RouterInterface $router)
+    public function __construct(UserRepository $userRepository, RouterInterface $router)
     {
         $this->userRepository = $userRepository;
         $this->router = $router;

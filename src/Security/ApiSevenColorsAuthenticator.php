@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
-class ApiAndesAuthenticator extends AbstractAuthenticator
+class ApiSevenColorsAuthenticator extends AbstractAuthenticator
 {
     private EntityManagerInterface $em;
 

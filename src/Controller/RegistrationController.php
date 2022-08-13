@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\UserNd;
+use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Repository\UserNdRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
-        $user = new UserNd();
+        $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -71,12 +71,13 @@ class RegistrationController extends AbstractController
      * @Route("/verify", name="app_verify_email")
      * @param Request $request
      * @param VerifyEmailHelperInterface $verifyEmailHelper
-     * @param UserNdRepository $userNdRepository
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $entityManager
      * @return RedirectResponse
      */
-    public function verifyUserMail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserNdRepository $userNdRepository, EntityManagerInterface $entityManager)
+    public function verifyUserMail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager): RedirectResponse
     {
-        $user = $userNdRepository->find($request->query->get('id'));
+        $user = $userRepository->find($request->query->get('id'));
 
         if (!$user) {
             throw $this->createNotFoundException();

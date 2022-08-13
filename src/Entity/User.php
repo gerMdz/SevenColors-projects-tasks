@@ -3,11 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @ORM\Table(name="user_sec")
@@ -17,10 +17,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="uuid", unique=true)
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="doctrine.uuid_generator")
      */
-    private ?int $id;
+    private ?Uuid $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -38,6 +39,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private string $password;
 
+    private $plainPassword;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -45,20 +48,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("user:read")
      */
-    private ?string $primerNombre;
+    private ?string $FirstName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="owner")
+     * @ORM\Column(type="boolean")
      */
-    private $questions;
+    private ?bool $isVerified = false;
 
-    public function __construct()
-    {
-        $this->questions = new ArrayCollection();
-    }
 
-    public function getId(): ?int
+
+    public function getId(): ?Uuid
     {
         return $this->id;
     }
@@ -152,23 +153,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPrimerNombre(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->primerNombre;
+        return $this->FirstName;
     }
 
-    public function setPrimerNombre(?string $primerNombre): self
+    public function setFirstName(?string $FirstName): self
     {
-        $this->primerNombre = $primerNombre;
+        $this->FirstName = $FirstName;
 
         return $this;
     }
 
-    public function getUsername(): string
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword():?string
     {
-        return $this->getUserIdentifier();
+        return $this->plainPassword;
     }
 
+    /**
+     * @param mixed $plainPassword
+     */
+    public function setPlainPassword($plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    /**
+     * @param int $size
+     * @return string|null
+     * @Groups("user:read")
+     */
     public function getAvatarUri(int $size = 32): ?string
     {
         return 'https://ui-avatars.com/api/?' . http_build_query([
@@ -180,36 +198,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getDisplayName():?string
     {
-        return $this->getPrimerNombre() ?: $this->getEmail();
+        return $this->getFirstName() ?: $this->getEmail();
     }
 
-    /**
-     * @return Collection|Question[]
-     */
-    public function getQuestions(): Collection
+
+
+    public function getUsername(): string
     {
-        return $this->questions;
+        return $this->getUserIdentifier();
     }
 
-    public function addQuestion(Question $question): self
+    public function getIsVerified(): ?bool
     {
-        if (!$this->questions->contains($question)) {
-            $this->questions[] = $question;
-            $question->setOwner($this);
-        }
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
 
-    public function removeQuestion(Question $question): self
-    {
-        if ($this->questions->removeElement($question)) {
-            // set the owning side to null (unless already changed)
-            if ($question->getOwner() === $this) {
-                $question->setOwner(null);
-            }
-        }
-
-        return $this;
-    }
 }
