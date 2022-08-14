@@ -10,7 +10,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\UserNd
+                class: App\Entity\User
                 property: email
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -24,8 +24,8 @@ security:
             entry_point: form_login
             custom_authenticator:
 #                - App\Security\AndesFormAuthenticator
-#                - App\Security\LoginFormAuthenticator
-                - App\Security\DummyAuthenticator
+                - App\Security\LoginFormAuthenticator
+#                - App\Security\DummyAuthenticator
             form_login:
                 login_path: app_login
                 check_path: app_login

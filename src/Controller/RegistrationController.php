@@ -43,21 +43,25 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $id = $user->getId()->toRfc4122();
+
 
             $signature = $verifyEmailHelper->generateSignature(
                 'app_verify_email',
-                $user->getId(),
+                $id,
                 $user->getEmail(),
-                ['id' => $user->getId()]
+                ['id' => $id]
 
             );
 
 
+
+
 //            TODO para enviar email
-            $this->addFlash('success', 'Confirmar mail' . $signature->getSignedUrl());
+            $this->addFlash('success', 'Confirmar mail en: ' . $signature->getSignedUrl());
 
 
-            return $this->redirectToRoute('app_homepage');
+            return $this->redirectToRoute('app_inicio');
 
 //            return $this->redirectToRoute('app_inicio');
         }
@@ -77,6 +81,7 @@ class RegistrationController extends AbstractController
      */
     public function verifyUserMail(Request $request, VerifyEmailHelperInterface $verifyEmailHelper, UserRepository $userRepository, EntityManagerInterface $entityManager): RedirectResponse
     {
+
         $user = $userRepository->find($request->query->get('id'));
 
         if (!$user) {

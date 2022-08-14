@@ -2,10 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Factory\AndesUserFactory;
-use App\Factory\QuestionFactory;
 use App\Factory\UserFactory;
-use App\Factory\UserNdFactory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
