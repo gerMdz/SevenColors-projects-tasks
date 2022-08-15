@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
+use App\Service\Mailer\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,7 +26,7 @@ class RegistrationController extends AbstractController
      * @param VerifyEmailHelperInterface $verifyEmailHelper
      * @return Response
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, VerifyEmailHelperInterface $verifyEmailHelper, SendMail $sendMail): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -54,10 +55,15 @@ class RegistrationController extends AbstractController
 
             );
 
+                $data = [
+                    'to' => $user->getEmail(),
+                    'subject' => 'Confirmar email',
+                    'message' => 'Por favor confirmar email ',
+                    'content' =>  $signature->getSignedUrl()
+                ];
 
+                $sendMail->sendEmail($data);
 
-
-//            TODO para enviar email
             $this->addFlash('success', 'Confirmar mail en: ' . $signature->getSignedUrl());
 
 
