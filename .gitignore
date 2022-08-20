@@ -11,8 +11,6 @@
 /.idea/
 /.idea
 .idea/*
-/migrations/*
-
 
 ###> symfony/webpack-encore-bundle ###
 /node_modules/

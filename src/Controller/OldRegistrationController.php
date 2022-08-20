@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
-class RegistrationController extends AbstractController
+class OldRegistrationController extends AbstractController
 {
     /**
      * @Route("/register", name="app_register")
