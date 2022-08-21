@@ -59,6 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?bool $isVerified = false;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Organization::class, inversedBy="organization_user")
+     */
+    private ?Organization $organization;
+
 
 
     public function getId(): ?Uuid
@@ -225,6 +230,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isVerified(): bool
     {
         return $this->isVerified;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
+
+        return $this;
     }
 
 }

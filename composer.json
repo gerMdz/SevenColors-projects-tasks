@@ -24,6 +24,7 @@
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.13",
+        "hashids/hashids": "^4.1",
         "knplabs/knp-time-bundle": "^1.11",
         "pagerfanta/doctrine-orm-adapter": "^3.3",
         "pagerfanta/twig": "^3.3",

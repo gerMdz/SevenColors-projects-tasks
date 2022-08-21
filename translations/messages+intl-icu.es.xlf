@@ -433,6 +433,10 @@
                 <source>menu.login</source>
                 <target>Acceder</target>
             </trans-unit>
+            <trans-unit id="login.form.forgot_password">
+                <source>login.form.forgot_password</source>
+                <target>Olvidé mi clave</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

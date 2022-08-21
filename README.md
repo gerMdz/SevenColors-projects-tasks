@@ -21,6 +21,19 @@ Manage projects and their tasks taking into account: users, clients and organiza
 #### Mini fork of
 > https://github.com/inshopgroup/inshop-crm-api
 
+##### TODO List
+
+- [X] Asegurar pasos de los usuarios
+- [ ] Crear el owner del sistema
+- [ ] Apificar 
+- [ ] Crud role
+- [ ] Asegurar CSS
+- [ ] Asegurar Traducciones
+- [ ] Configurar mails
+- [ ] Crud contacto
+- [ ] Crud personas
+- [ ] Crud address
+- [ ] Crear validadores para forms
 
 ##### Why Seven Colors?
 
