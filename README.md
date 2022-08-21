@@ -27,6 +27,7 @@ Manage projects and their tasks taking into account: users, clients and organiza
 - [ ] Crear el owner del sistema
 - [ ] Apificar 
 - [ ] Crud role
+- [ ] Crud organización
 - [ ] Asegurar CSS
 - [ ] Asegurar Traducciones
 - [ ] Configurar mails
