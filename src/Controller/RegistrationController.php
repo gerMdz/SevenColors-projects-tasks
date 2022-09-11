@@ -59,11 +59,25 @@ class RegistrationController extends AbstractController
             );
             // do anything else you need here, like send an email
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
+            /**
+             * Esta parte se habilita si el registro de usuarios por si mismos está permitido
+             *
+             * This part is enabled if user registration by itself is allowed
+             */
+//            return $userAuthenticator->authenticateUser(
+//                $user,
+//                $authenticator,
+//                $request
+//            );
+
+            $this->addFlash(
+                'success',
+                'Se realizó el registro correctamente'
             );
+
+            return $this->redirectToRoute('app_inicio');
+
+
         }
 
         return $this->render('registration/register.html.twig', [

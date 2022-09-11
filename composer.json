@@ -29,6 +29,7 @@
         "pagerfanta/doctrine-orm-adapter": "^3.3",
         "pagerfanta/twig": "^3.3",
         "phpdocumentor/reflection-docblock": "^5.3",
+        "phpunit/phpunit": "^9.5",
         "sensio/framework-extra-bundle": "^6.0",
         "stof/doctrine-extensions-bundle": "^1.4",
         "symfony/asset": "5.4.*",
@@ -66,6 +67,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "symfony/debug-bundle": "5.4.*",
         "symfony/maker-bundle": "^1.43",
+        "symfony/phpunit-bridge": "^6.1",
         "symfony/var-dumper": "5.4.*",
         "symfony/web-profiler-bundle": "5.4.*",
         "zenstruck/foundry": "^1.1"

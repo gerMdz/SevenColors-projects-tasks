@@ -82,12 +82,23 @@
         </div>
     </div>
 </nav>
-{% for flash in app.flashes('success') %}
-    <div class="alert alert-success">{{ flash }}</div>
-{% endfor %}
+
 {% for flash in app.flashes('error') %}
     <div class="alert alert-danger">{{ flash }}</div>
 {% endfor %}
+{% for flash in app.flashes('notice') %}
+    <div class="alert alert-info">{{ flash }}</div>
+{% endfor %}
+
+{% for label, messages in app.flashes(['success', 'warning', 'info', 'danger']) %}
+    {% for message in messages %}
+        <div class="bg-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+
 
 {% block body %}{% endblock %}
 <footer class="mt-5 p-3 text-center">

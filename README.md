@@ -24,11 +24,14 @@ Manage projects and their tasks taking into account: users, clients and organiza
 ##### TODO List
 
 - [X] Asegurar pasos de los usuarios
-  - [ ] Crear
-  - [ ] Registrar
+  - [X] Crear
+  - [X] Registrar
+    - [X] Errors and Success
+  - [X] CRUD User
   - [ ] Editar
   - [ ] Recuperar clave
   - [ ] Cambiar clave
+  - [ ] Asegurar rutas
 - [ ] Crear el owner del sistema
 - [ ] Apificar 
 - [ ] Crud role
@@ -40,6 +43,8 @@ Manage projects and their tasks taking into account: users, clients and organiza
 - [ ] Crud personas
 - [ ] Crud address
 - [ ] Crear validadores para forms
+- [ ] Instalando Test
+  - [ ] Test User
 
 ##### Why Seven Colors?
 
