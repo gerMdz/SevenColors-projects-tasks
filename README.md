@@ -24,6 +24,11 @@ Manage projects and their tasks taking into account: users, clients and organiza
 ##### TODO List
 
 - [X] Asegurar pasos de los usuarios
+  - [ ] Crear
+  - [ ] Registrar
+  - [ ] Editar
+  - [ ] Recuperar clave
+  - [ ] Cambiar clave
 - [ ] Crear el owner del sistema
 - [ ] Apificar 
 - [ ] Crud role

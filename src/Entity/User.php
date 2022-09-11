@@ -64,6 +64,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private ?Organization $organization;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private ?bool $isActive = true;
+
 
 
     public function getId(): ?Uuid
@@ -240,6 +245,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setOrganization(?Organization $organization): self
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function isIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }
